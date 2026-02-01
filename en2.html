@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酸性雨について - クイズ</title>
+    <style>
+        body {
+            font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.8;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .quiz-item {
+            background-color: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .answer-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 5px;
+        }
+        .answer-btn:hover {
+            background-color: #45a049;
+        }
+        .answer {
+            display: none;
+            color: #d32f2f;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+        .answer.show {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <h1>酸性雨について</h1>
+    
+    <div class="quiz-item">
+        <p>酸性雨とは、pHが<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">5.6</span>以下のものと定義され、二酸化硫黄や窒素酸化物を起源とする。</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>汚染物質が雨や霧に移行することを<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">湿性沈着</span>、土壌や植物などに直接硫黄することを<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">乾性沈着</span>という。</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>酸性雨は、19世紀の半ばにイギリスで初めて観測され、<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">産業革命</span>を機に<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">石炭</span>の使用量が増大したために発生した。</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>1952年の<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">ロンドンスモッグ事件</span>直後の雨のpHは1.4~1.9と記録されている。</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>ドイツ南西部の<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">シュヴァルツヴァルト</span>（黒い森）」では多くの木々が枯れた。森の約75％が酸性雨で被害を受けた。</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>日本では1973年に<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">酸性霧</span>による被害を確認した。</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>現在酸性雨が最も進行している国は<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">中国</span></p>
+    </div>
+
+    <div class="quiz-item">
+        <p>沈着した大気汚染物質のことを<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">酸性降下物</span>という。</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>日本では、酸性雨よりも<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">酸性霧</span>の方が問題である。</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>対策としては、石炭や石油に含まれる硫黄を事前に取り除く<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">選炭、脱硫</span>や、酸性化した湖沼に<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">石灰</span>をばら撒いて中和する。</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>1979年に<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">ジュネーヴ条約</span>が締結されたほか、</p>
+    </div>
+
+    <div class="quiz-item">
+        <p>1985年には<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">ヘルシンキ議定書</span>において硫黄の大気中への排出30％減を目標化した。</p>
+    </div>
+
+    <script>
+        function toggleAnswer(button) {
+            const answer = button.nextElementSibling;
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                button.textContent = '回答を表示';
+            } else {
+                answer.classList.add('show');
+                button.textContent = '回答を非表示';
+            }
+        }
+    </script>
+</body>
+</html>

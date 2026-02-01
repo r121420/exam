@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>環境クイズ</title>
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.8;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #555;
+            margin-top: 40px;
+            font-size: 1.3em;
+        }
+        
+        .quiz-item {
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+        
+        .answer {
+            display: none;
+            color: #2196F3;
+            font-weight: bold;
+        }
+        
+        .show {
+            display: inline;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .section {
+            background-color: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>環境クイズ</h1>
+
+    <div class="section">
+        <h2>2022年の世界大気汚染PM2.5ランキング</h2>
+        <div class="quiz-item">
+            １位：<span class="answer" id="answer1">「チャド共和国」</span>
+            <button onclick="toggleAnswer('answer1')">回答を表示</button>
+        </div>
+        <div class="quiz-item">
+            ２位：<span class="answer" id="answer2">「イラク」</span>
+            <button onclick="toggleAnswer('answer2')">回答を表示</button>
+        </div>
+        <div class="quiz-item">
+            ３位：<span class="answer" id="answer3">「パキスタン」</span>
+            <button onclick="toggleAnswer('answer3')">回答を表示</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>土壌環境とは</h2>
+        <div class="quiz-item">
+            日本では<span class="answer" id="answer4">「足尾銅山（栃木県）」</span>
+            <button onclick="toggleAnswer('answer4')">回答を表示</button>
+            や<span class="answer" id="answer5">「土呂久鉱山」</span>
+            <button onclick="toggleAnswer('answer5')">回答を表示</button>
+            などで鉱毒事件発生。
+        </div>
+        <div class="quiz-item">
+            世界に先駆けて1970年に<span class="answer" id="answer6">「農用地土壌汚染防止法」</span>
+            <button onclick="toggleAnswer('answer6')">回答を表示</button>
+            を制定
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="quiz-item">
+            戦後、化学工業や電気工業が発達
+        </div>
+        <div class="quiz-item">
+            <span class="answer" id="answer7">「六価クロム」</span>
+            <button onclick="toggleAnswer('answer7')">回答を表示</button>
+            やVOCによる市街地の土壌と地下水汚染が発生
+        </div>
+        <div class="quiz-item">
+            2003年に<span class="answer" id="answer8">「土壌汚染対策法」</span>
+            <button onclick="toggleAnswer('answer8')">回答を表示</button>
+            が施行
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>環境アセスメントとミティゲーションについて</h2>
+        <div class="quiz-item">
+            環境アセスメントとは、<span class="answer" id="answer9">「環境影響評価」</span>
+            <button onclick="toggleAnswer('answer9')">回答を表示</button>
+            （日本語）
+        </div>
+        <div class="quiz-item">
+            assessment=<span class="answer" id="answer10">「評価、査定、分析」</span>
+            <button onclick="toggleAnswer('answer10')">回答を表示</button>
+        </div>
+        <div class="quiz-item">
+            mitigation=<span class="answer" id="answer11">「和らげること、緩和、軽減」</span>
+            <button onclick="toggleAnswer('answer11')">回答を表示</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="quiz-item">
+            1960年台のアメリカで農薬による環境汚染
+        </div>
+        <div class="quiz-item">
+            <span class="answer" id="answer12">「沈黙の春（Silent spring）」</span>
+            <button onclick="toggleAnswer('answer12')">回答を表示</button>
+            という本により問題提起
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="quiz-item">
+            1969年、
+        </div>
+        <div class="quiz-item">
+            <span class="answer" id="answer14">「国家環境基本法」</span>
+            <button onclick="toggleAnswer('answer14')">回答を表示</button>
+            の制定
+        </div>
+        <div class="quiz-item">
+            日本では、1972年に公共事業において<span class="answer" id="answer15">「環境アセスメント」</span>
+            <button onclick="toggleAnswer('answer15')">回答を表示</button>
+            を導入
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="quiz-item">
+            1993年には、<span class="answer" id="answer16">「環境基本法」</span>
+            <button onclick="toggleAnswer('answer16')">回答を表示</button>
+            が制定
+        </div>
+        <div class="quiz-item">
+            1997年には<span class="answer" id="answer17">「環境影響評価法（Environmental Impact Assessment Law）」</span>
+            <button onclick="toggleAnswer('answer17')">回答を表示</button>
+            が制定
+        </div>
+    </div>
+
+    <script>
+        function toggleAnswer(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
