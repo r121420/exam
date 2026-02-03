@@ -9,104 +9,109 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #ffffff; /* 背景を白に */
+            color: #333;
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 12px;
             overflow: hidden;
         }
 
         .header {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            color: white;
-            padding: 30px;
+            background: #ffffff;
+            color: #333;
+            padding: 20px 10px;
             text-align: center;
+            border-bottom: 2px solid #4CAF50;
+            position: sticky; /* スコアを上部に固定 */
+            top: 0;
+            z-index: 10;
         }
 
         .header h1 {
-            font-size: 2em;
+            font-size: 1.5rem;
             margin-bottom: 10px;
         }
 
         .score-board {
-            background: rgba(255,255,255,0.2);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
+            background: #f0f4f0;
+            padding: 10px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .score-item {
-            font-size: 1.1em;
+            gap: 5px;
+            font-size: 0.9rem;
         }
 
         .content {
-            padding: 30px;
+            padding: 15px 10px;
         }
 
         .section {
-            margin-bottom: 35px;
-            padding: 25px;
-            background: #f9f9f9;
-            border-radius: 12px;
-            border-left: 5px solid #4CAF50;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f9f9f9; /* ほんの少しグレーで区切り */
+            border-radius: 10px;
+            border: 1px solid #eee;
         }
 
         .section h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.4em;
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
         }
 
         .quiz-item {
-            margin: 20px 0;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin: 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .quiz-item:last-child {
+            border-bottom: none;
         }
 
         .question {
-            font-size: 1.05em;
-            line-height: 1.8;
+            font-size: 1rem;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
+        /* スマホで入力欄を押しやすく */
         .input-group {
-            display: inline-block;
-            position: relative;
-            margin: 0 5px;
+            display: block;
+            margin: 10px 0;
         }
 
         input[type="text"] {
-            padding: 8px 12px;
+            width: 100%; /* スマホでは幅いっぱい */
+            max-width: 400px;
+            padding: 12px;
             border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 1em;
-            font-family: inherit;
+            border-radius: 8px;
+            font-size: 16px; /* iOSのズーム防止 */
             transition: all 0.3s;
-            min-width: 200px;
         }
 
         input[type="text"]:focus {
             outline: none;
             border-color: #4CAF50;
-            box-shadow: 0 0 0 3px rgba(76,175,80,0.1);
+            background: #fff;
         }
 
         input.correct {
@@ -117,130 +122,85 @@
         input.incorrect {
             border-color: #f44336;
             background-color: #ffebee;
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
         }
 
         .feedback {
-            display: inline-block;
-            margin-left: 10px;
+            display: block;
+            margin-top: 5px;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 0.9rem;
+            min-height: 1.2em;
         }
 
-        .feedback.correct {
-            color: #4CAF50;
-        }
-
-        .feedback.incorrect {
-            color: #f44336;
-        }
+        .feedback.correct { color: #2e7d32; }
+        .feedback.incorrect { color: #d32f2f; }
 
         .button-group {
-            text-align: center;
-            margin: 30px 0;
             display: flex;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
-            flex-wrap: wrap;
+            margin: 30px 0;
         }
 
         button {
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            flex: 1;
+            max-width: 200px;
+            background: #4CAF50;
             color: white;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.1em;
-            border-radius: 25px;
+            padding: 15px;
+            font-size: 1rem;
+            border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(76,175,80,0.3);
-            font-family: inherit;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76,175,80,0.4);
-        }
-
-        button:active {
-            transform: translateY(0);
+            font-weight: bold;
         }
 
         button.reset {
-            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
-            box-shadow: 0 4px 15px rgba(255,152,0,0.3);
+            background: #9e9e9e;
         }
 
-        button.reset:hover {
-            box-shadow: 0 6px 20px rgba(255,152,0,0.4);
-        }
-
+        /* モーダル調整 */
         .result-modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .result-content {
             background: white;
-            padding: 40px;
-            border-radius: 20px;
+            padding: 30px;
+            border-radius: 15px;
             text-align: center;
-            max-width: 500px;
-            animation: slideIn 0.5s;
+            width: 100%;
+            max-width: 400px;
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
+        /* PCでの表示微調整 */
+        @media (min-width: 600px) {
+            .input-group {
+                display: inline-block;
+                margin: 0 5px;
             }
-            to {
-                transform: translateY(0);
-                opacity: 1;
+            input[type="text"] {
+                width: auto;
+                min-width: 200px;
             }
-        }
-
-        .result-content h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-
-        .result-score {
-            font-size: 3em;
-            color: #4CAF50;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
-        .result-message {
-            font-size: 1.2em;
-            color: #666;
-            margin-bottom: 30px;
+            .header h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🌍 環境クイズテスト 🌍</h1>
+            <h1>🌍 環境クイズテスト</h1>
             <div class="score-board">
-                <div class="score-item">正解数: <span id="correct-count">0</span></div>
-                <div class="score-item">不正解数: <span id="incorrect-count">0</span></div>
+                <div class="score-item">正解: <span id="correct-count">0</span></div>
+                <div class="score-item">不正解: <span id="incorrect-count">0</span></div>
                 <div class="score-item">未回答: <span id="unanswered-count">16</span></div>
             </div>
         </div>
@@ -249,151 +209,102 @@
             <div class="section">
                 <h2>2022年の世界大気汚染PM2.5ランキング</h2>
                 <div class="quiz-item">
-                    <div class="question">
-                        １位：<span class="input-group"><input type="text" data-answer="チャド共和国" id="q1"></span>
-                        <span class="feedback" id="f1"></span>
-                    </div>
+                    <div class="question">１位：<span class="input-group"><input type="text" data-answer="チャド共和国" id="q1"></span></div>
+                    <span class="feedback" id="f1"></span>
                 </div>
                 <div class="quiz-item">
-                    <div class="question">
-                        ２位：<span class="input-group"><input type="text" data-answer="イラク" id="q2"></span>
-                        <span class="feedback" id="f2"></span>
-                    </div>
+                    <div class="question">２位：<span class="input-group"><input type="text" data-answer="イラク" id="q2"></span></div>
+                    <span class="feedback" id="f2"></span>
                 </div>
                 <div class="quiz-item">
-                    <div class="question">
-                        ３位：<span class="input-group"><input type="text" data-answer="パキスタン" id="q3"></span>
-                        <span class="feedback" id="f3"></span>
-                    </div>
+                    <div class="question">３位：<span class="input-group"><input type="text" data-answer="パキスタン" id="q3"></span></div>
+                    <span class="feedback" id="f3"></span>
                 </div>
             </div>
 
             <div class="section">
                 <h2>土壌環境とは</h2>
                 <div class="quiz-item">
-                    <div class="question">
-                        日本では<span class="input-group"><input type="text" data-answer="足尾銅山（栃木県）|足尾銅山(栃木県)|足尾銅山" id="q4"></span>
-                        <span class="feedback" id="f4"></span>
-                        や<span class="input-group"><input type="text" data-answer="土呂久鉱山" id="q5"></span>
-                        <span class="feedback" id="f5"></span>
-                        などで鉱毒事件発生。
-                    </div>
+                    <div class="question">日本では<span class="input-group"><input type="text" data-answer="足尾銅山（栃木県）|足尾銅山(栃木県)|足尾銅山" id="q4"></span>や<span class="input-group"><input type="text" data-answer="土呂久鉱山" id="q5"></span>などで鉱毒事件発生。</div>
+                    <span class="feedback" id="f4"></span><span class="feedback" id="f5"></span>
                 </div>
                 <div class="quiz-item">
-                    <div class="question">
-                        世界に先駆けて1970年に<span class="input-group"><input type="text" data-answer="農用地土壌汚染防止法" id="q6"></span>
-                        <span class="feedback" id="f6"></span>
-                        を制定
-                    </div>
+                    <div class="question">世界に先駆けて1970年に<span class="input-group"><input type="text" data-answer="農用地土壌汚染防止法" id="q6"></span>を制定</div>
+                    <span class="feedback" id="f6"></span>
                 </div>
             </div>
 
             <div class="section">
+                <div class="quiz-item"><div class="question">戦後、化学工業や電気工業が発達</div></div>
                 <div class="quiz-item">
-                    <div class="question">戦後、化学工業や電気工業が発達</div>
+                    <div class="question"><span class="input-group"><input type="text" data-answer="六価クロム" id="q7"></span>やVOCによる市街地の土壌と地下水汚染が発生</div>
+                    <span class="feedback" id="f7"></span>
                 </div>
                 <div class="quiz-item">
-                    <div class="question">
-                        <span class="input-group"><input type="text" data-answer="六価クロム" id="q7"></span>
-                        <span class="feedback" id="f7"></span>
-                        やVOCによる市街地の土壌と地下水汚染が発生
-                    </div>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">
-                        2003年に<span class="input-group"><input type="text" data-answer="土壌汚染対策法" id="q8"></span>
-                        <span class="feedback" id="f8"></span>
-                        が施行
-                    </div>
+                    <div class="question">2003年に<span class="input-group"><input type="text" data-answer="土壌汚染対策法" id="q8"></span>が施行</div>
+                    <span class="feedback" id="f8"></span>
                 </div>
             </div>
 
             <div class="section">
                 <h2>環境アセスメントとミティゲーションについて</h2>
                 <div class="quiz-item">
-                    <div class="question">
-                        環境アセスメントとは、<span class="input-group"><input type="text" data-answer="環境影響評価" id="q9"></span>
-                        <span class="feedback" id="f9"></span>
-                        （日本語）
-                    </div>
+                    <div class="question">環境アセスメントとは、<span class="input-group"><input type="text" data-answer="環境影響評価" id="q9"></span>（日本語）</div>
+                    <span class="feedback" id="f9"></span>
                 </div>
                 <div class="quiz-item">
-                    <div class="question">
-                        assessment=<span class="input-group"><input type="text" data-answer="評価、査定、分析|評価|査定|分析" id="q10"></span>
-                        <span class="feedback" id="f10"></span>
-                    </div>
+                    <div class="question">assessment=<span class="input-group"><input type="text" data-answer="評価、査定、分析|評価|査定|分析" id="q10"></span></div>
+                    <span class="feedback" id="f10"></span>
                 </div>
                 <div class="quiz-item">
-                    <div class="question">
-                        mitigation=<span class="input-group"><input type="text" data-answer="和らげること、緩和、軽減|和らげること,緩和,軽減|緩和|軽減|和らげること" id="q11"></span>
-                        <span class="feedback" id="f11"></span>
-                    </div>
+                    <div class="question">mitigation=<span class="input-group"><input type="text" data-answer="和らげること、緩和、軽減|和らげること,緩和,軽減|緩和|軽減|和らげること" id="q11"></span></div>
+                    <span class="feedback" id="f11"></span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="quiz-item"><div class="question">1960年台のアメリカで農薬による環境汚染</div></div>
+                <div class="quiz-item">
+                    <div class="question"><span class="input-group"><input type="text" data-answer="沈黙の春（Silent spring）|沈黙の春(Silent spring)|沈黙の春|Silent spring" id="q12"></span>という本により問題提起</div>
+                    <span class="feedback" id="f12"></span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="quiz-item"><div class="question">1969年、</div></div>
+                <div class="quiz-item">
+                    <div class="question"><span class="input-group"><input type="text" data-answer="国家環境基本法" id="q13"></span>の制定</div>
+                    <span class="feedback" id="f13"></span>
+                </div>
+                <div class="quiz-item">
+                    <div class="question">日本では、1972年に公共事業において<span class="input-group"><input type="text" data-answer="環境アセスメント" id="q14"></span>を導入</div>
+                    <span class="feedback" id="f14"></span>
                 </div>
             </div>
 
             <div class="section">
                 <div class="quiz-item">
-                    <div class="question">1960年台のアメリカで農薬による環境汚染</div>
+                    <div class="question">1993年には、<span class="input-group"><input type="text" data-answer="環境基本法" id="q15"></span>が制定</div>
+                    <span class="feedback" id="f15"></span>
                 </div>
                 <div class="quiz-item">
-                    <div class="question">
-                        <span class="input-group"><input type="text" data-answer="沈黙の春（Silent spring）|沈黙の春(Silent spring)|沈黙の春|Silent spring" id="q12"></span>
-                        <span class="feedback" id="f12"></span>
-                        という本により問題提起
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="quiz-item">
-                    <div class="question">1969年、</div>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">
-                        <span class="input-group"><input type="text" data-answer="国家環境基本法" id="q13"></span>
-                        <span class="feedback" id="f13"></span>
-                        の制定
-                    </div>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">
-                        日本では、1972年に公共事業において<span class="input-group"><input type="text" data-answer="環境アセスメント" id="q14"></span>
-                        <span class="feedback" id="f14"></span>
-                        を導入
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="quiz-item">
-                    <div class="question">
-                        1993年には、<span class="input-group"><input type="text" data-answer="環境基本法" id="q15"></span>
-                        <span class="feedback" id="f15"></span>
-                        が制定
-                    </div>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">
-                        1997年には<span class="input-group"><input type="text" data-answer="環境影響評価法（Environmental Impact Assessment Law）|環境影響評価法(Environmental Impact Assessment Law)|環境影響評価法" id="q16"></span>
-                        <span class="feedback" id="f16"></span>
-                        が制定
-                    </div>
+                    <div class="question">1997年には<span class="input-group"><input type="text" data-answer="環境影響評価法（Environmental Impact Assessment Law）|環境影響評価法(Environmental Impact Assessment Law)|環境影響評価法" id="q16"></span>が制定</div>
+                    <span class="feedback" id="f16"></span>
                 </div>
             </div>
 
             <div class="button-group">
-                <button onclick="checkAllAnswers()">📝 採点する</button>
-                <button class="reset" onclick="resetQuiz()">🔄 リセット</button>
+                <button onclick="checkAllAnswers()">採点する</button>
+                <button class="reset" onclick="resetQuiz()">リセット</button>
             </div>
         </div>
     </div>
 
     <div class="result-modal" id="resultModal">
         <div class="result-content">
-            <h2>🎉 テスト結果 🎉</h2>
-            <div class="result-score" id="finalScore">0/16</div>
-            <div class="result-message" id="resultMessage"></div>
-            <button onclick="closeModal()">閉じる</button>
+            <h2 id="finalScore" style="font-size: 2.5rem; color: #4CAF50;">0/16</h2>
+            <p id="resultMessage" style="margin: 15px 0; font-size: 1.1rem;"></p>
+            <button onclick="closeModal()" style="max-width: 100%;">閉じる</button>
         </div>
     </div>
 
@@ -417,15 +328,13 @@
             const feedbackElement = document.getElementById('f' + input.id.substring(1));
             
             if (userAnswer === '') {
-                input.className = 'incorrect'; // 未入力も不正解扱いにする
-                const displayAnswer = rawAnswers[0];
-                feedbackElement.textContent = `未回答 (正解: ${displayAnswer})`;
+                input.className = 'incorrect';
+                feedbackElement.textContent = `未入力 (正解: ${rawAnswers[0]})`;
                 feedbackElement.className = 'feedback incorrect';
                 return false;
             }
             
             const isCorrect = correctAnswers.includes(userAnswer);
-            
             if (isCorrect) {
                 input.className = 'correct';
                 feedbackElement.textContent = '✓ 正解!';
@@ -433,8 +342,7 @@
                 return true;
             } else {
                 input.className = 'incorrect';
-                const displayAnswer = rawAnswers[0]; // 最初の選択肢を正解として表示
-                feedbackElement.textContent = `✗ 不正解 (正解: ${displayAnswer})`;
+                feedbackElement.textContent = `✗ 不正解 (正解: ${rawAnswers[0]})`;
                 feedbackElement.className = 'feedback incorrect';
                 return false;
             }
@@ -443,17 +351,11 @@
         function checkAllAnswers() {
             correctCount = 0;
             incorrectCount = 0;
-
             const inputs = document.querySelectorAll('input[type="text"]');
             inputs.forEach(input => {
-                const result = checkAnswer(input);
-                if (result === true) {
-                    correctCount++;
-                } else {
-                    incorrectCount++;
-                }
+                if (checkAnswer(input)) correctCount++;
+                else incorrectCount++;
             });
-
             updateScoreboard();
             showResult();
         }
@@ -466,56 +368,27 @@
 
         function showResult() {
             const modal = document.getElementById('resultModal');
-            const scoreElement = document.getElementById('finalScore');
-            const messageElement = document.getElementById('resultMessage');
-            
-            scoreElement.textContent = `${correctCount} / ${totalQuestions}`;
-            
+            document.getElementById('finalScore').textContent = `${correctCount} / ${totalQuestions}`;
             const percentage = (correctCount / totalQuestions) * 100;
-            let message = '';
-            
-            if (percentage === 100) {
-                message = '🌟 完璧です！素晴らしい！ 🌟';
-            } else if (percentage >= 80) {
-                message = '🎊 よくできました！ 🎊';
-            } else if (percentage >= 60) {
-                message = '👍 もう少しです！頑張りましょう！';
-            } else {
-                message = '📚 復習して再チャレンジしましょう！';
-            }
-            
-            messageElement.textContent = message;
+            let message = percentage === 100 ? 'まぁまぁやるやん。' : percentage >= 70 ? 'とりあえず単位はあるんちゃうかな' : 'なるほど、品管に全振りする感じですね。';
+            document.getElementById('resultMessage').textContent = message;
             modal.style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('resultModal').style.display = 'none';
-        }
+        function closeModal() { document.getElementById('resultModal').style.display = 'none'; }
 
         function resetQuiz() {
-            const inputs = document.querySelectorAll('input[type="text"]');
-            inputs.forEach(input => {
-                input.value = '';
-                input.className = '';
+            if(!confirm('リセットしますか？')) return;
+            document.querySelectorAll('input[type="text"]').forEach(input => {
+                input.value = ''; input.className = '';
             });
-
-            const feedbacks = document.querySelectorAll('.feedback');
-            feedbacks.forEach(feedback => {
-                feedback.textContent = '';
-                feedback.className = 'feedback';
+            document.querySelectorAll('.feedback').forEach(f => {
+                f.textContent = ''; f.className = 'feedback';
             });
-
-            correctCount = 0;
-            incorrectCount = 0;
+            correctCount = 0; incorrectCount = 0;
             updateScoreboard();
             document.getElementById('unanswered-count').textContent = totalQuestions;
         }
-
-        document.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkAllAnswers();
-            }
-        });
     </script>
 </body>
 </html>
