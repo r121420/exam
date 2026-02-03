@@ -3,115 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>酸性雨について - クイズ</title>
+    <title>酸性雨テスト</title>
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --success-color: #2e7d32;
+            --error-color: #c62828;
+            --bg-color: #ffffff;
+            --item-bg: #f8f9fa;
+        }
+
         body {
-            font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-            line-height: 1.8;
-        }
-        h1 {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
             color: #333;
-            text-align: center;
-            border-bottom: 3px solid #4CAF50;
-            padding-bottom: 10px;
+            line-height: 1.6;
         }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
         .quiz-item {
-            background-color: white;
+            background-color: var(--item-bg);
             padding: 15px;
             margin: 15px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            border-left: 5px solid #ddd;
         }
-        .answer-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            margin: 0 5px;
-        }
-        .answer-btn:hover {
-            background-color: #45a049;
-        }
-        .answer {
-            display: none;
-            color: #d32f2f;
+
+        .question-number {
             font-weight: bold;
-            margin: 0 5px;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
         }
-        .answer.show {
-            display: inline;
+
+        .question-text {
+            font-size: 1rem;
+            word-wrap: break-word;
+        }
+
+        input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 6px 10px;
+            margin: 4px 2px;
+            font-size: 16px; /* iOSのズーム防止 */
+            width: calc(100% - 24px); /* スマホでのデフォルト */
+            max-width: 200px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+
+        /* 判定用スタイル */
+        .quiz-item.correct { border-left-color: var(--success-color); background-color: #e8f5e9; }
+        .quiz-item.incorrect { border-left-color: var(--error-color); background-color: #ffebee; }
+        input.correct { border-color: var(--success-color); background-color: #fff; }
+        input.incorrect { border-color: var(--error-color); background-color: #fff; }
+
+        .feedback {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .feedback.show { display: block; }
+        .feedback.correct { color: var(--success-color); }
+        .feedback.incorrect { color: var(--error-color); border: 1px dashed var(--error-color); }
+
+        .score-display {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #eef6ff;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+            flex: 1;
+            max-width: 150px;
+        }
+
+        .submit-btn { background-color: var(--primary-color); color: white; }
+        .reset-btn { background-color: #95a5a6; color: white; }
+        button:active { opacity: 0.8; }
+
+        /* タブレット・PC向け調整 */
+        @media (min-width: 600px) {
+            .container { padding: 40px; margin: 40px auto; }
+            h1 { font-size: 2rem; }
+            input[type="text"] { width: auto; }
         }
     </style>
 </head>
 <body>
-    <h1>酸性雨について</h1>
+
+<div class="container">
+    <h1>🌧️ 酸性雨テスト</h1>
     
-    <div class="quiz-item">
-        <p>酸性雨とは、pHが<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">5.6</span>以下のものと定義され、二酸化硫黄や窒素酸化物を起源とする。</p>
-    </div>
+    <div class="score-display" id="scoreDisplay"></div>
 
-    <div class="quiz-item">
-        <p>汚染物質が雨や霧に移行することを<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">湿性沈着</span>、土壌や植物などに直接硫黄することを<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">乾性沈着</span>という。</p>
-    </div>
+    <form id="quizForm">
+        <div class="quiz-item">
+            <div class="question-number">問題 1</div>
+            <div class="question-text">
+                酸性雨とは、pHが<input type="text" data-answer="5.6" placeholder="数値">以下のものと定義され、二酸化硫黄や窒素酸化物を起源とする。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>酸性雨は、19世紀の半ばにイギリスで初めて観測され、<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">産業革命</span>を機に<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">石炭</span>の使用量が増大したために発生した。</p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 2</div>
+            <div class="question-text">
+                汚染物質が雨や霧に移行することを<input type="text" data-answer="湿性沈着" placeholder="回答">、土壌や植物などに直接付着することを<input type="text" data-answer="乾性沈着" placeholder="回答">という。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>1952年の<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">ロンドンスモッグ事件</span>直後の雨のpHは1.4~1.9と記録されている。</p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 3</div>
+            <div class="question-text">
+                酸性雨は、19世紀の半ばにイギリスで初めて観測され、<input type="text" data-answer="産業革命" placeholder="回答">を機に<input type="text" data-answer="石炭" placeholder="回答">の使用量が増大したために発生した。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>ドイツ南西部の<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">シュヴァルツヴァルト</span>（黒い森）」では多くの木々が枯れた。森の約75％が酸性雨で被害を受けた。</p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 4</div>
+            <div class="question-text">
+                1952年の<input type="text" data-answer="ロンドンスモッグ事件" placeholder="回答">直後の雨のpHは1.4~1.9と記録されている。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>日本では1973年に<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">酸性霧</span>による被害を確認した。</p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 5</div>
+            <div class="question-text">
+                ドイツ南西部の<input type="text" data-answer="シュヴァルツヴァルト" placeholder="回答">（黒い森）では多くの木々が枯れた。森の約75％が酸性雨で被害を受けた。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>現在酸性雨が最も進行している国は<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">中国</span></p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 6</div>
+            <div class="question-text">
+                日本では1973年に<input type="text" data-answer="酸性霧" placeholder="回答">による被害を確認した。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>沈着した大気汚染物質のことを<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">酸性降下物</span>という。</p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 7</div>
+            <div class="question-text">
+                現在酸性雨が最も進行している国は<input type="text" data-answer="中国" placeholder="回答">
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>日本では、酸性雨よりも<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">酸性霧</span>の方が問題である。</p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 8</div>
+            <div class="question-text">
+                沈着した大気汚染物質のことを<input type="text" data-answer="酸性降下物" placeholder="回答">という。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>対策としては、石炭や石油に含まれる硫黄を事前に取り除く<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">選炭、脱硫</span>や、酸性化した湖沼に<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">石灰</span>をばら撒いて中和する。</p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 9</div>
+            <div class="question-text">
+                日本では、酸性雨よりも<input type="text" data-answer="酸性霧" placeholder="回答">の方が問題である。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>1979年に<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">ジュネーヴ条約</span>が締結されたほか、</p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 10</div>
+            <div class="question-text">
+                対策としては、石炭や石油に含まれる硫黄を事前に取り除く<input type="text" data-answer="選炭" placeholder="回答">、<input type="text" data-answer="脱硫" placeholder="回答">や、酸性化した湖沼に<input type="text" data-answer="石灰" placeholder="回答">をばら撒いて中和する。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <div class="quiz-item">
-        <p>1985年には<button class="answer-btn" onclick="toggleAnswer(this)">回答を表示</button><span class="answer">ヘルシンキ議定書</span>において硫黄の大気中への排出30％減を目標化した。</p>
-    </div>
+        <div class="quiz-item">
+            <div class="question-number">問題 11</div>
+            <div class="question-text">
+                1979年に<input type="text" data-answer="ジュネーヴ条約" placeholder="回答">が締結された。
+            </div>
+            <div class="feedback"></div>
+        </div>
 
-    <script>
-        function toggleAnswer(button) {
-            const answer = button.nextElementSibling;
-            if (answer.classList.contains('show')) {
-                answer.classList.remove('show');
-                button.textContent = '回答を表示';
+        <div class="quiz-item">
+            <div class="question-number">問題 12</div>
+            <div class="question-text">
+                1985年には<input type="text" data-answer="ヘルシンキ議定書" placeholder="回答">において硫黄の大気中への排出30％減を目標化した。
+            </div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="button-container">
+            <button type="submit" class="submit-btn">採点する</button>
+            <button type="button" class="reset-btn" onclick="resetQuiz()">リセット</button>
+        </div>
+    </form>
+</div>
+
+<script>
+ function normalize(str) {
+    // 全角英数字を半角に、大文字を小文字に変換し、空白を除去
+    return str.trim()
+        .replace(/[！-～]/g, function(s) {
+            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        })
+        .replace(/\s+/g, '')
+        .toLowerCase();
+}
+
+document.getElementById('quizForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    let totalInputs = 0;
+    let correctInputs = 0;
+    const quizItems = document.querySelectorAll('.quiz-item');
+
+    quizItems.forEach(item => {
+        const inputs = item.querySelectorAll('input[type="text"]');
+        const feedback = item.querySelector('.feedback');
+        let itemAllCorrect = true;
+        let correctAnswersList = [];
+        
+        inputs.forEach(input => {
+            totalInputs++;
+            const userAnswer = normalize(input.value);
+            const correctAnswer = normalize(input.dataset.answer);
+            correctAnswersList.push(input.dataset.answer);
+
+            input.classList.remove('correct', 'incorrect');
+            
+            // カンマや「、」で区切られた複数の正解候補に対応
+            const validAnswers = correctAnswer.split(/[、,]/);
+            const isCorrect = validAnswers.some(ans => normalize(ans) === userAnswer);
+
+            if (isCorrect) {
+                input.classList.add('correct');
+                correctInputs++;
             } else {
-                answer.classList.add('show');
-                button.textContent = '回答を非表示';
+                input.classList.add('incorrect');
+                itemAllCorrect = false;
             }
+        });
+
+        feedback.classList.remove('show', 'correct', 'incorrect');
+        if (itemAllCorrect) {
+            item.classList.add('correct');
+            item.classList.remove('incorrect');
+            feedback.textContent = '✓ 正解！';
+            feedback.classList.add('show', 'correct');
+        } else {
+            item.classList.add('incorrect');
+            item.classList.remove('correct');
+            feedback.textContent = `✗ 正解は: ${correctAnswersList.join(' / ')}`;
+            feedback.classList.add('show', 'incorrect');
         }
-    </script>
+    });
+
+    // --- スコアとコメントの表示処理 ---
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const percentage = Math.round((correctInputs / totalInputs) * 100);
+    
+    let comment = "";
+    let color = "";
+
+    if (percentage === 100) {
+        comment = "当日は関数電卓と定規を忘れないようにしてください。";
+        color = "#2e7d32";
+    } else if (percentage >= 80) {
+        comment = "環境もやけどね、品質管理もね、勉強してくださいね。";
+        color = "#1976d2";
+    } else if (percentage >= 50) {
+        comment = "え、環境落とすつもり...？";
+        color = "#f57c00";
+    } else {
+        comment = "あ、品管に全振りされる方ですね。";
+        color = "#d32f2f";
+    }
+
+    scoreDisplay.innerHTML = `
+        <div>結果: ${correctInputs} / ${totalInputs} 正解 (${percentage}%)</div>
+        <div style="font-size: 1rem; margin-top: 8px; color: ${color};">${comment}</div>
+    `;
+    scoreDisplay.style.display = 'block'; // display: noneを解除
+    scoreDisplay.classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+function resetQuiz() {
+    document.getElementById('quizForm').reset();
+    document.querySelectorAll('.quiz-item, input, .feedback').forEach(el => {
+        el.classList.remove('correct', 'incorrect', 'show');
+    });
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    scoreDisplay.style.display = 'none'; // スコアを隠す
+    scoreDisplay.classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
 </body>
 </html>
