@@ -1,354 +1,561 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>酸性雨テスト</title>
-    <style>
-        :root {
-            --primary-color: #4a90e2;
-            --success-color: #2e7d32;
-            --error-color: #c62828;
-            --bg-color: #ffffff;
-            --item-bg: #f8f9fa;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英作文ドリル｜空所補充トレーニング</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Yomogi&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f1e6;
+    --paper-line: rgba(163,32,44,0.16);
+    --paper-line-strong: rgba(163,32,44,0.32);
+    --ink:#1f2a3c;
+    --ink-soft:#4a5568;
+    --indigo:#223a5e;
+    --indigo-deep:#152438;
+    --red:#a3202c;
+    --red-bright:#c62d2d;
+    --green:#2f6b4f;
+    --card:#fffdf8;
+    --card-border:#e4dcc6;
+  }
 
-        body {
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Meiryo", sans-serif;
-            max-width: 100%;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f2f5;
-            color: #333;
-            line-height: 1.6;
-        }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: var(--bg-color);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+  body{
+    background-color: var(--paper);
+    background-image:
+      repeating-linear-gradient(to bottom, transparent 0, transparent 27px, var(--paper-line) 27px, var(--paper-line) 28px),
+      repeating-linear-gradient(to right, transparent 0, transparent 27px, var(--paper-line) 27px, var(--paper-line) 28px);
+    color: var(--ink);
+    font-family: 'Inter', 'Shippori Mincho', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 140px 0;
+  }
 
-        h1 {
-            font-size: 1.5rem;
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--primary-color);
-        }
+  .margin-line{
+    position: fixed;
+    top:0; bottom:0;
+    left: 56px;
+    width: 2px;
+    background: var(--paper-line-strong);
+    z-index: 0;
+  }
 
-        .quiz-item {
-            background-color: var(--item-bg);
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-            border-left: 5px solid #ddd;
-        }
+  header{
+    position: relative;
+    z-index: 1;
+    padding: 46px 24px 30px 84px;
+    max-width: 900px;
+  }
 
-        .question-number {
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
+  .eyebrow{
+    font-family:'Shippori Mincho', serif;
+    font-size: 13px;
+    letter-spacing: 0.28em;
+    color: var(--red);
+    margin: 0 0 10px 0;
+    font-weight: 600;
+  }
 
-        .question-text {
-            font-size: 1rem;
-            word-wrap: break-word;
-        }
+  h1{
+    font-family:'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: clamp(30px, 5vw, 46px);
+    margin: 0 0 8px 0;
+    color: var(--indigo-deep);
+    letter-spacing: 0.02em;
+  }
 
-        input[type="text"] {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 6px 10px;
-            margin: 4px 2px;
-            font-size: 16px; /* iOSのズーム防止 */
-            width: calc(100% - 24px); /* スマホでのデフォルト */
-            max-width: 200px;
-            box-sizing: border-box;
-        }
+  header p.sub{
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.7;
+    max-width: 560px;
+  }
 
-        input[type="text"]:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
-        }
+  main{
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 0 84px;
+  }
 
-        /* 判定用スタイル */
-        .quiz-item.correct { border-left-color: var(--success-color); background-color: #e8f5e9; }
-        .quiz-item.incorrect { border-left-color: var(--error-color); background-color: #ffebee; }
-        input.correct { border-color: var(--success-color); background-color: #fff; }
-        input.incorrect { border-color: var(--error-color); background-color: #fff; }
+  .section-title{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 44px 0 18px 0;
+  }
+  .section-title .num{
+    font-family:'Shippori Mincho', serif;
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--red);
+    line-height:1;
+  }
+  .section-title h2{
+    font-family:'Shippori Mincho', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--indigo-deep);
+    margin: 0;
+  }
+  .section-title .count{
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-left: auto;
+  }
 
-        .feedback {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
+  .card{
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+    padding: 18px 22px 16px 22px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .card::before{
+    content: attr(data-qn);
+    position: absolute;
+    top: -11px;
+    left: 18px;
+    background: var(--indigo-deep);
+    color: #f5f1e6;
+    font-family:'Shippori Mincho', serif;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
 
-        .feedback.show { display: block; }
-        .feedback.correct { color: var(--success-color); }
-        .feedback.incorrect { color: var(--error-color); border: 1px dashed var(--error-color); }
+  .jp{
+    font-family:'Shippori Mincho', serif;
+    font-size: 15.5px;
+    color: var(--ink);
+    margin: 8px 0 10px 0;
+    line-height: 1.75;
+  }
 
-        .score-display {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #eef6ff;
-            border-radius: 8px;
-            display: none;
-        }
+  .en{
+    font-size: 15.5px;
+    line-height: 2.3;
+    color: var(--indigo-deep);
+  }
 
-        .button-container {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
+  .blank{
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    margin: 0 2px;
+  }
 
-        button {
-            padding: 12px 24px;
-            border-radius: 30px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            transition: opacity 0.2s;
-            flex: 1;
-            max-width: 150px;
-        }
+  input.gap{
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--indigo-deep);
+    border: none;
+    border-bottom: 2px solid var(--indigo);
+    background: transparent;
+    padding: 2px 4px;
+    width: 118px;
+    text-align: center;
+    outline: none;
+    transition: border-color .15s, background .15s;
+  }
+  input.gap:focus{
+    background: rgba(34,58,94,0.06);
+  }
+  input.gap.correct{
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(47,107,79,0.07);
+  }
+  input.gap.wrong{
+    border-color: var(--red-bright);
+    color: var(--red-bright);
+    background: rgba(198,45,45,0.07);
+  }
 
-        .submit-btn { background-color: var(--primary-color); color: white; }
-        .reset-btn { background-color: #95a5a6; color: white; }
-        button:active { opacity: 0.8; }
+  .mark{
+    position:absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-8deg);
+    font-family:'Yomogi', cursive;
+    font-size: 22px;
+    color: var(--red-bright);
+    pointer-events:none;
+    opacity: 0;
+    transition: opacity .15s, transform .15s;
+  }
+  .mark.show{ opacity:1; }
+  .mark.show.ok{ transform: translateX(-50%) rotate(-8deg) scale(1.15); }
 
-        /* タブレット・PC向け調整 */
-        @media (min-width: 600px) {
-            .container { padding: 40px; margin: 40px auto; }
-            h1 { font-size: 2rem; }
-            input[type="text"] { width: auto; }
-        }
-    </style>
+  .correction{
+    display:block;
+    font-family:'Yomogi', cursive;
+    font-size: 13.5px;
+    color: var(--red-bright);
+    margin-top: -2px;
+    transform: rotate(-2deg);
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    transition: opacity .2s;
+  }
+  .correction.show{ opacity:1; max-height:40px; margin-top:6px; }
+
+  /* bottom control bar */
+  .controls{
+    position: fixed;
+    bottom: 0; left:0; right:0;
+    background: var(--indigo-deep);
+    padding: 14px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 18px;
+    z-index: 10;
+    box-shadow: 0 -4px 18px rgba(0,0,0,0.18);
+  }
+
+  button{
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    border-radius: 3px;
+    padding: 11px 26px;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.02em;
+  }
+  #gradeBtn{
+    background: var(--red-bright);
+    color: #fff;
+  }
+  #gradeBtn:hover{ background: #b32626; }
+  #resetBtn{
+    background: transparent;
+    color: #d8d4c6;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  #resetBtn:hover{ border-color: #fff; color:#fff; }
+
+  .score-text{
+    color: #f5f1e6;
+    font-size: 13.5px;
+    font-family:'Shippori Mincho', serif;
+  }
+
+  /* hanko stamp */
+  .stamp{
+    position: fixed;
+    top: 40px;
+    right: clamp(16px, 4vw, 60px);
+    width: 92px;
+    height: 92px;
+    border: 4px solid var(--red-bright);
+    border-radius: 6px;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    color: var(--red-bright);
+    font-family:'Shippori Mincho', serif;
+    background: rgba(255,255,255,0.55);
+    opacity: 0;
+    transform: scale(1.6) rotate(-18deg);
+    transition: opacity .25s ease-out, transform .35s cubic-bezier(.2,1.4,.4,1);
+    z-index: 5;
+    pointer-events:none;
+    text-align:center;
+    line-height:1.15;
+  }
+  .stamp.show{
+    opacity: 0.92;
+    transform: scale(1) rotate(-8deg);
+  }
+  .stamp .kanji{ font-size: 13px; letter-spacing: 0.1em; font-weight:600; }
+  .stamp .score{ font-size: 19px; font-weight: 800; margin-top:2px; }
+
+  @media (max-width: 640px){
+    .margin-line{ left: 20px; }
+    header{ padding: 34px 16px 24px 40px; }
+    main{ padding: 0 16px 0 40px; }
+    .stamp{ width: 74px; height: 74px; top: 18px; }
+    .stamp .score{ font-size:15px; }
+    input.gap{ width: 92px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .stamp, .mark, input.gap{ transition: none; }
+  }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🌧️ 酸性雨テスト</h1>
-    
-    <div class="score-display" id="scoreDisplay"></div>
+<div class="margin-line"></div>
 
-    <form id="quizForm">
-        <div class="quiz-item">
-            <div class="question-number">問題 1</div>
-            <div class="question-text">
-                酸性雨とは、pHが<input type="text" data-answer="5.6" placeholder="数値">以下のものと定義され、二酸化硫黄や窒素酸化物を起源とする。
-            </div>
-            <div class="feedback"></div>
-        </div>
+<div class="stamp" id="stamp">
+  <div class="kanji">採点</div>
+  <div class="score" id="stampScore">-- / --</div>
+</div>
 
-        <div class="quiz-item">
-            <div class="question-number">問題 2</div>
-            <div class="question-text">
-                汚染物質が雨や霧に移行することを<input type="text" data-answer="湿性沈着" placeholder="回答">、土壌や植物などに直接付着することを<input type="text" data-answer="乾性沈着" placeholder="回答">という。
-            </div>
-            <div class="feedback"></div>
-        </div>
+<header>
+  <p class="eyebrow">FILL-IN-THE-BLANK WORKBOOK</p>
+  <h1>英作文ドリル</h1>
+  <p class="sub">日本文に合うように空所へ適語を入れましょう。to不定詞は一語として扱います。すべて入力したら下の「採点する」を押すと、赤ペンで丸つけされます。</p>
+</header>
 
-        <div class="quiz-item">
-            <div class="question-number">問題 3</div>
-            <div class="question-text">
-                酸性雨は、19世紀の半ばにイギリスで初めて観測され、<input type="text" data-answer="産業革命" placeholder="回答">を機に<input type="text" data-answer="石炭" placeholder="回答">の使用量が増大したために発生した。
-            </div>
-            <div class="feedback"></div>
-        </div>
+<main id="main"></main>
 
-        <div class="quiz-item">
-            <div class="question-number">問題 4</div>
-            <div class="question-text">
-                1952年の<input type="text" data-answer="ロンドンスモッグ事件" placeholder="回答">直後の雨のpHは1.4~1.9と記録されている。
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <div class="quiz-item">
-            <div class="question-number">問題 5</div>
-            <div class="question-text">
-                ドイツ南西部の<input type="text" data-answer="シュヴァルツヴァルト" placeholder="回答">（黒い森）では多くの木々が枯れた。森の約75％が酸性雨で被害を受けた。
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <div class="quiz-item">
-            <div class="question-number">問題 6</div>
-            <div class="question-text">
-                日本では1973年に<input type="text" data-answer="酸性霧" placeholder="回答">による被害を確認した。
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <div class="quiz-item">
-            <div class="question-number">問題 7</div>
-            <div class="question-text">
-                現在酸性雨が最も進行している国は<input type="text" data-answer="中国" placeholder="回答">
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <div class="quiz-item">
-            <div class="question-number">問題 8</div>
-            <div class="question-text">
-                沈着した大気汚染物質のことを<input type="text" data-answer="酸性降下物" placeholder="回答">という。
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <div class="quiz-item">
-            <div class="question-number">問題 9</div>
-            <div class="question-text">
-                日本では、酸性雨よりも<input type="text" data-answer="酸性霧" placeholder="回答">の方が問題である。
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <div class="quiz-item">
-            <div class="question-number">問題 10</div>
-            <div class="question-text">
-                対策としては、石炭や石油に含まれる硫黄を事前に取り除く<input type="text" data-answer="選炭" placeholder="回答">、<input type="text" data-answer="脱硫" placeholder="回答">や、酸性化した湖沼に<input type="text" data-answer="石灰" placeholder="回答">をばら撒いて中和する。
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <div class="quiz-item">
-            <div class="question-number">問題 11</div>
-            <div class="question-text">
-                1979年に<input type="text" data-answer="ジュネーヴ条約" placeholder="回答">が締結された。
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <div class="quiz-item">
-            <div class="question-number">問題 12</div>
-            <div class="question-text">
-                1985年には<input type="text" data-answer="ヘルシンキ議定書" placeholder="回答">において硫黄の大気中への排出30％減を目標化した。
-            </div>
-            <div class="feedback"></div>
-        </div>
-
-        <div class="button-container">
-            <button type="submit" class="submit-btn">採点する</button>
-            <button type="button" class="reset-btn" onclick="resetQuiz()">リセット</button>
-        </div>
-    </form>
+<div class="controls">
+  <button id="gradeBtn">採点する</button>
+  <button id="resetBtn">リセット</button>
+  <span class="score-text" id="scoreText"></span>
 </div>
 
 <script>
- function normalize(str) {
-    // 全角英数字を半角に、大文字を小文字に変換し、空白を除去
-    return str.trim()
-        .replace(/[！-～]/g, function(s) {
-            return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
-        })
-        .replace(/\s+/g, '')
-        .toLowerCase();
-}
+// ---------- quiz data ----------
+// template blanks are marked with ___
+// answers: array of arrays; each inner array = accepted answers for that blank (already lowercase)
+const quizData = [
+  { section: 1, sectionTitle: "空所補充（１）", n:1,  jp:"私は彼女のことは聞いて知っているが、個人的な面識はない。",
+    template:"I know ___ her, but I don't know her ___.",
+    answers:[["of"],["personally"]] },
+  { section: 1, n:2,  jp:"我々は出帆の用意ができている。",
+    template:"We are ___ to sail. = We are ___ to sail.",
+    answers:[["ready"],["about","prepared"]] },
+  { section: 1, n:3,  jp:"あなたはそんな大金をどのように使うつもりですか。",
+    template:"How are you going ___ such a large ___ of money?",
+    answers:[["to spend"],["sum"]] },
+  { section: 1, n:4,  jp:"特に、なかでも",
+    template:"___ all = ___",
+    answers:[["above"],["especially"]] },
+  { section: 1, n:5,  jp:"彼女はいつも最新流行の洋服を着ている。",
+    template:"She is always dressed ___ the ___ fashion.",
+    answers:[["in"],["latest"]] },
+  { section: 1, n:6,  jp:"私たちは目的地に向かって出発した。",
+    template:"We set ___ for our ___.",
+    answers:[["out"],["destination"]] },
+  { section: 1, n:7,  jp:"彼はその間中ずっと黙っていた。",
+    template:"He ___ ___ all the time.",
+    answers:[["kept"],["silent"]] },
+  { section: 1, n:8,  jp:"～する決心をする",
+    template:"make ___ one's mind to do = ___ to do",
+    answers:[["up"],["decide"]] },
+  { section: 1, n:9,  jp:"彼は7月の初めにドイツへ出発した。",
+    template:"He left for Germany ___ the ___ of July.",
+    answers:[["at"],["beginning"]] },
+  { section: 1, n:10, jp:"私は風邪のため少し胃が痛い。",
+    template:"I have a ___ ___ because of a cold.",
+    answers:[["slight","little","bit of a"],["stomachache","stomach ache"]] },
+  { section: 1, n:11, jp:"成功は常に勤勉に起因する。",
+    template:"Success always ___ from ___.",
+    answers:[["results"],["hard work"]] },
+  { section: 1, n:12, jp:"狼は形が犬とは違う。",
+    template:"Wolves ___ ___ dogs in shape.",
+    answers:[["differ"],["from"]] },
+  { section: 1, n:13, jp:"私は病気のためその会合に出席できない。",
+    template:"I cannot ___ the meeting on ___ of illness.",
+    answers:[["attend"],["account"]] },
+  { section: 1, n:14, jp:"彼が息子を誇りに思うのはもっともである。",
+    template:"He may ___ take ___ in his son.",
+    answers:[["well"],["pride"]] },
+  { section: 1, n:15, jp:"この機械はミルクから乳脂を分離する。",
+    template:"This machine ___ cream ___ milk.",
+    answers:[["separates"],["from"]] },
+  { section: 1, n:16, jp:"正直な人々が必ずしも成功するわけではない。",
+    template:"Honest people will not ___ ___.",
+    answers:[["necessarily"],["succeed"]] },
+  { section: 1, n:17, jp:"私はその山を登る試みに失敗した。",
+    template:"I ___ in my ___ to climb the mountain.",
+    answers:[["failed"],["attempt"]] },
+  { section: 1, n:18, jp:"彼女は5人の子供を育てた。",
+    template:"She ___ up five children. = She ___ five children.",
+    answers:[["brought"],["raised"]] },
+  { section: 1, n:19, jp:"私は友人を見送りに駅へ行ってきたところです。",
+    template:"I have been to the station ___ my friend ___.",
+    answers:[["to see"],["off"]] },
+  { section: 1, n:20, jp:"テッドは戦争から無事に帰郷した。",
+    template:"Ted returned home ___ and ___ from the war.",
+    answers:[["safe"],["sound"]] },
 
-document.getElementById('quizForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    let totalInputs = 0;
-    let correctInputs = 0;
-    const quizItems = document.querySelectorAll('.quiz-item');
+  { section: 2, sectionTitle: "空所補充（２）", n:1, jp:"私が今へこたれていると思わないで。",
+    template:"And don't think I'm ___ ___ now.",
+    answers:[["giving"],["up"]] },
+  { section: 2, n:2, jp:"私はずっと望んでいたように修士号を取るために学校に戻るつもりです。",
+    template:"I'm going back to school to get my ___, ___ I've always wanted to.",
+    answers:[["master's degree","masters degree","master's","masters"],["as"]] },
+  { section: 2, n:3, jp:"どうやって授業料を払うの。",
+    template:"How can you ___ the ___?",
+    answers:[["pay"],["tuition"]] },
+  { section: 2, n:4, jp:"でも、生計は何で立てるの。",
+    template:"But ___ are you gonna ___ on?",
+    answers:[["what"],["live"]] },
+  { section: 2, n:5, jp:"彼女は私が学校を出してやった。彼女が私に同じようにしてくれてもいい。",
+    template:"I ___ her ___ school. She can do the same for me.",
+    answers:[["put"],["through"]] },
+  { section: 2, n:6, jp:"私は本当に忙しかった。―私に電話をかけることはできたでしょうに。",
+    template:"I was really busy. —You ___ ___ me.",
+    answers:[["could've","could have"],["called"]] },
+  { section: 2, n:7, jp:"ディナーは最低一万円です。―あのレストランは続かないだろう。",
+    template:"Dinner is ten thousand yen ___. —That restaurant won't ___.",
+    answers:[["minimum","at minimum"],["last"]] },
+  { section: 2, n:8, jp:"あなたはだんなさんに交替で料理をして欲しいのですね。",
+    template:"You want your husband ___ ___ cooking, don't you?",
+    answers:[["to take"],["turns"]] },
+];
 
-    quizItems.forEach(item => {
-        const inputs = item.querySelectorAll('input[type="text"]');
-        const feedback = item.querySelector('.feedback');
-        let itemAllCorrect = true;
-        let correctAnswersList = [];
-        
-        inputs.forEach(input => {
-            totalInputs++;
-            const userAnswer = normalize(input.value);
-            const correctAnswer = normalize(input.dataset.answer);
-            correctAnswersList.push(input.dataset.answer);
+// ---------- render ----------
+const main = document.getElementById('main');
+let blankCounter = 0;
+let currentSection = null;
 
-            input.classList.remove('correct', 'incorrect');
-            
-            // カンマや「、」で区切られた複数の正解候補に対応
-            const validAnswers = correctAnswer.split(/[、,]/);
-            const isCorrect = validAnswers.some(ans => normalize(ans) === userAnswer);
+quizData.forEach((q, qi) => {
+  if (q.section !== currentSection) {
+    currentSection = q.section;
+    const st = document.createElement('div');
+    st.className = 'section-title';
+    st.innerHTML = `<span class="num">${String(currentSection).padStart(2,'0')}</span>
+      <h2>${q.sectionTitle || ('Part ' + currentSection)}</h2>
+      <span class="count">全${quizData.filter(x=>x.section===currentSection).length}問</span>`;
+    main.appendChild(st);
+  }
 
-            if (isCorrect) {
-                input.classList.add('correct');
-                correctInputs++;
-            } else {
-                input.classList.add('incorrect');
-                itemAllCorrect = false;
-            }
-        });
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.setAttribute('data-qn', 'Q' + q.n);
 
-        feedback.classList.remove('show', 'correct', 'incorrect');
-        if (itemAllCorrect) {
-            item.classList.add('correct');
-            item.classList.remove('incorrect');
-            feedback.textContent = '✓ 正解！';
-            feedback.classList.add('show', 'correct');
-        } else {
-            item.classList.add('incorrect');
-            item.classList.remove('correct');
-            feedback.textContent = `✗ 正解は: ${correctAnswersList.join(' / ')}`;
-            feedback.classList.add('show', 'incorrect');
-        }
-    });
+  const jpEl = document.createElement('p');
+  jpEl.className = 'jp';
+  jpEl.textContent = q.jp;
+  card.appendChild(jpEl);
 
-    // --- スコアとコメントの表示処理 ---
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    const percentage = Math.round((correctInputs / totalInputs) * 100);
-    
-    let comment = "";
-    let color = "";
+  const enEl = document.createElement('p');
+  enEl.className = 'en';
 
-    if (percentage === 100) {
-        comment = "当日は関数電卓と定規を忘れないようにしてください。";
-        color = "#2e7d32";
-    } else if (percentage >= 80) {
-        comment = "環境もやけどね、品質管理もね、勉強してくださいね。";
-        color = "#1976d2";
-    } else if (percentage >= 50) {
-        comment = "え、環境落とすつもり...？";
-        color = "#f57c00";
-    } else {
-        comment = "あ、品管に全振りされる方ですね。";
-        color = "#d32f2f";
+  const parts = q.template.split('___');
+  parts.forEach((part, i) => {
+    enEl.appendChild(document.createTextNode(part));
+    if (i < parts.length - 1) {
+      const wrap = document.createElement('span');
+      wrap.className = 'blank';
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'gap';
+      input.autocomplete = 'off';
+      input.spellcheck = false;
+      const id = 'b' + (blankCounter++);
+      input.id = id;
+      input.dataset.answers = JSON.stringify(q.answers[i]);
+
+      const mark = document.createElement('span');
+      mark.className = 'mark';
+      mark.id = id + '-mark';
+
+      wrap.appendChild(input);
+      wrap.appendChild(mark);
+      enEl.appendChild(wrap);
     }
+  });
 
-    scoreDisplay.innerHTML = `
-        <div>結果: ${correctInputs} / ${totalInputs} 正解 (${percentage}%)</div>
-        <div style="font-size: 1rem; margin-top: 8px; color: ${color};">${comment}</div>
-    `;
-    scoreDisplay.style.display = 'block'; // display: noneを解除
-    scoreDisplay.classList.add('show');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  card.appendChild(enEl);
+
+  const corr = document.createElement('span');
+  corr.className = 'correction';
+  corr.id = 'card-corr-' + qi;
+  card.appendChild(corr);
+
+  main.appendChild(card);
 });
 
-function resetQuiz() {
-    document.getElementById('quizForm').reset();
-    document.querySelectorAll('.quiz-item, input, .feedback').forEach(el => {
-        el.classList.remove('correct', 'incorrect', 'show');
-    });
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    scoreDisplay.style.display = 'none'; // スコアを隠す
-    scoreDisplay.classList.remove('show');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+// ---------- grading ----------
+function normalize(str){
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[’']/g, "'")
+    .replace(/'/g, "")
+    .replace(/[.,!?]/g, "")
+    .replace(/\s+/g, " ");
 }
+
+document.getElementById('gradeBtn').addEventListener('click', () => {
+  const inputs = document.querySelectorAll('input.gap');
+  let correctCount = 0;
+
+  inputs.forEach(input => {
+    const accepted = JSON.parse(input.dataset.answers).map(normalize);
+    const value = normalize(input.value);
+    const isCorrect = value.length > 0 && accepted.includes(value);
+    const mark = document.getElementById(input.id + '-mark');
+
+    input.classList.remove('correct','wrong');
+    mark.classList.remove('show','ok');
+
+    if (isCorrect) {
+      input.classList.add('correct');
+      mark.textContent = '○';
+      mark.classList.add('show','ok');
+      correctCount++;
+    } else {
+      input.classList.add('wrong');
+      mark.textContent = '✗';
+      mark.classList.add('show');
+      // show correct answer beneath the card
+      const card = input.closest('.card');
+      const corr = card.querySelector('.correction');
+      const answersForThis = JSON.parse(input.dataset.answers);
+      // gather all wrong-answer hints for this card
+      corr.dataset.hasError = "true";
+      appendHint(corr, answersForThis);
+    }
+  });
+
+  const total = inputs.length;
+  document.getElementById('scoreText').textContent = `得点：${correctCount} / ${total}`;
+
+  const stamp = document.getElementById('stamp');
+  document.getElementById('stampScore').textContent = `${correctCount}/${total}`;
+  stamp.classList.remove('show');
+  requestAnimationFrame(() => requestAnimationFrame(() => stamp.classList.add('show')));
+});
+
+function appendHint(corrEl, answers){
+  const text = '正解: ' + answers.join(' / ');
+  const existing = corrEl.textContent;
+  if (!existing.includes(text)) {
+    corrEl.textContent = existing ? existing + '　　' + text : text;
+  }
+  corrEl.classList.add('show');
+}
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  document.querySelectorAll('input.gap').forEach(input => {
+    input.value = '';
+    input.classList.remove('correct','wrong');
+  });
+  document.querySelectorAll('.mark').forEach(m => m.classList.remove('show','ok'));
+  document.querySelectorAll('.correction').forEach(c => {
+    c.textContent = '';
+    c.classList.remove('show');
+    delete c.dataset.hasError;
+  });
+  document.getElementById('scoreText').textContent = '';
+  document.getElementById('stamp').classList.remove('show');
+});
 </script>
 </body>
 </html>
