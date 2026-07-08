@@ -1,394 +1,586 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>環境クイズテスト</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英作文ドリル２｜空所補充トレーニング（100点満点）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Yomogi&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f1e6;
+    --paper-line: rgba(163,32,44,0.16);
+    --paper-line-strong: rgba(163,32,44,0.32);
+    --ink:#1f2a3c;
+    --ink-soft:#4a5568;
+    --indigo:#223a5e;
+    --indigo-deep:#152438;
+    --red:#a3202c;
+    --red-bright:#c62d2d;
+    --green:#2f6b4f;
+    --card:#fffdf8;
+    --card-border:#e4dcc6;
+  }
 
-        body {
-            font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            background-color: #ffffff; /* 背景を白に */
-            color: #333;
-            min-height: 100vh;
-            padding: 10px;
-            line-height: 1.6;
-        }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-        }
+  body{
+    background-color: var(--paper);
+    background-image:
+      repeating-linear-gradient(to bottom, transparent 0, transparent 27px, var(--paper-line) 27px, var(--paper-line) 28px),
+      repeating-linear-gradient(to right, transparent 0, transparent 27px, var(--paper-line) 27px, var(--paper-line) 28px);
+    color: var(--ink);
+    font-family: 'Inter', 'Shippori Mincho', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 140px 0;
+  }
 
-        .header {
-            background: #ffffff;
-            color: #333;
-            padding: 20px 10px;
-            text-align: center;
-            border-bottom: 2px solid #4CAF50;
-            position: sticky; /* スコアを上部に固定 */
-            top: 0;
-            z-index: 10;
-        }
+  .margin-line{
+    position: fixed;
+    top:0; bottom:0;
+    left: 56px;
+    width: 2px;
+    background: var(--paper-line-strong);
+    z-index: 0;
+  }
 
-        .header h1 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
+  header{
+    position: relative;
+    z-index: 1;
+    padding: 46px 24px 30px 84px;
+    max-width: 900px;
+  }
 
-        .score-board {
-            background: #f0f4f0;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 5px;
-            font-size: 0.9rem;
-        }
+  .eyebrow{
+    font-family:'Shippori Mincho', serif;
+    font-size: 13px;
+    letter-spacing: 0.28em;
+    color: var(--red);
+    margin: 0 0 10px 0;
+    font-weight: 600;
+  }
 
-        .content {
-            padding: 15px 10px;
-        }
+  h1{
+    font-family:'Shippori Mincho', serif;
+    font-weight: 800;
+    font-size: clamp(30px, 5vw, 46px);
+    margin: 0 0 8px 0;
+    color: var(--indigo-deep);
+    letter-spacing: 0.02em;
+  }
 
-        .section {
-            margin-bottom: 25px;
-            padding: 15px;
-            background: #f9f9f9; /* ほんの少しグレーで区切り */
-            border-radius: 10px;
-            border: 1px solid #eee;
-        }
+  header p.sub{
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin: 0;
+    line-height: 1.7;
+    max-width: 560px;
+  }
 
-        .section h2 {
-            color: #2e7d32;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-        }
+  main{
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 0 84px;
+  }
 
-        .quiz-item {
-            margin: 15px 0;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #ccc;
-        }
+  .section-title{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 44px 0 18px 0;
+  }
+  .section-title .num{
+    font-family:'Shippori Mincho', serif;
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--red);
+    line-height:1;
+  }
+  .section-title h2{
+    font-family:'Shippori Mincho', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--indigo-deep);
+    margin: 0;
+  }
+  .section-title .count{
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-left: auto;
+  }
 
-        .quiz-item:last-child {
-            border-bottom: none;
-        }
+  .card{
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03);
+    padding: 18px 22px 16px 22px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .card::before{
+    content: attr(data-qn);
+    position: absolute;
+    top: -11px;
+    left: 18px;
+    background: var(--indigo-deep);
+    color: #f5f1e6;
+    font-family:'Shippori Mincho', serif;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+  .card .pts{
+    position:absolute;
+    top: -11px;
+    right: 18px;
+    background: var(--red-bright);
+    color: #fff;
+    font-family:'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 2px;
+    letter-spacing: 0.03em;
+  }
 
-        .question {
-            font-size: 1rem;
-            color: #333;
-            margin-bottom: 8px;
-        }
+  .jp{
+    font-family:'Shippori Mincho', serif;
+    font-size: 15.5px;
+    color: var(--ink);
+    margin: 8px 0 10px 0;
+    line-height: 1.75;
+  }
 
-        /* スマホで入力欄を押しやすく */
-        .input-group {
-            display: block;
-            margin: 10px 0;
-        }
+  .en{
+    font-size: 15.5px;
+    line-height: 2.3;
+    color: var(--indigo-deep);
+  }
 
-        input[type="text"] {
-            width: 100%; /* スマホでは幅いっぱい */
-            max-width: 400px;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px; /* iOSのズーム防止 */
-            transition: all 0.3s;
-        }
+  .blank{
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    margin: 0 2px;
+  }
 
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #4CAF50;
-            background: #fff;
-        }
+  input.gap{
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--indigo-deep);
+    border: none;
+    border-bottom: 2px solid var(--indigo);
+    background: transparent;
+    padding: 2px 4px;
+    width: 118px;
+    text-align: center;
+    outline: none;
+    transition: border-color .15s, background .15s;
+  }
+  input.gap:focus{
+    background: rgba(34,58,94,0.06);
+  }
+  input.gap.correct{
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(47,107,79,0.07);
+  }
+  input.gap.wrong{
+    border-color: var(--red-bright);
+    color: var(--red-bright);
+    background: rgba(198,45,45,0.07);
+  }
 
-        input.correct {
-            border-color: #4CAF50;
-            background-color: #e8f5e9;
-        }
+  .mark{
+    position:absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-8deg);
+    font-family:'Yomogi', cursive;
+    font-size: 22px;
+    color: var(--red-bright);
+    pointer-events:none;
+    opacity: 0;
+    transition: opacity .15s, transform .15s;
+  }
+  .mark.show{ opacity:1; }
+  .mark.show.ok{ transform: translateX(-50%) rotate(-8deg) scale(1.15); }
 
-        input.incorrect {
-            border-color: #f44336;
-            background-color: #ffebee;
-        }
+  .correction{
+    display:block;
+    font-family:'Yomogi', cursive;
+    font-size: 13.5px;
+    color: var(--red-bright);
+    margin-top: -2px;
+    transform: rotate(-2deg);
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    transition: opacity .2s;
+  }
+  .correction.show{ opacity:1; max-height:40px; margin-top:6px; }
 
-        .feedback {
-            display: block;
-            margin-top: 5px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            min-height: 1.2em;
-        }
+  .qscore{
+    display:block;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .qscore.show{ opacity: 1; }
 
-        .feedback.correct { color: #2e7d32; }
-        .feedback.incorrect { color: #d32f2f; }
+  /* bottom control bar */
+  .controls{
+    position: fixed;
+    bottom: 0; left:0; right:0;
+    background: var(--indigo-deep);
+    padding: 14px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 18px;
+    z-index: 10;
+    box-shadow: 0 -4px 18px rgba(0,0,0,0.18);
+  }
 
-        .button-group {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin: 30px 0;
-        }
+  button{
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    border-radius: 3px;
+    padding: 11px 26px;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.02em;
+  }
+  #gradeBtn{
+    background: var(--red-bright);
+    color: #fff;
+  }
+  #gradeBtn:hover{ background: #b32626; }
+  #resetBtn{
+    background: transparent;
+    color: #d8d4c6;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  #resetBtn:hover{ border-color: #fff; color:#fff; }
 
-        button {
-            flex: 1;
-            max-width: 200px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 15px;
-            font-size: 1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+  .score-text{
+    color: #f5f1e6;
+    font-size: 13.5px;
+    font-family:'Shippori Mincho', serif;
+  }
 
-        button.reset {
-            background: #9e9e9e;
-        }
+  /* hanko stamp */
+  .stamp{
+    position: fixed;
+    top: 40px;
+    right: clamp(16px, 4vw, 60px);
+    width: 96px;
+    height: 96px;
+    border: 4px solid var(--red-bright);
+    border-radius: 6px;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    color: var(--red-bright);
+    font-family:'Shippori Mincho', serif;
+    background: rgba(255,255,255,0.55);
+    opacity: 0;
+    transform: scale(1.6) rotate(-18deg);
+    transition: opacity .25s ease-out, transform .35s cubic-bezier(.2,1.4,.4,1);
+    z-index: 5;
+    pointer-events:none;
+    text-align:center;
+    line-height:1.15;
+  }
+  .stamp.show{
+    opacity: 0.92;
+    transform: scale(1) rotate(-8deg);
+  }
+  .stamp .kanji{ font-size: 12px; letter-spacing: 0.1em; font-weight:600; }
+  .stamp .score{ font-size: 20px; font-weight: 800; margin-top:2px; }
+  .stamp .max{ font-size: 10px; opacity:0.75; }
 
-        /* モーダル調整 */
-        .result-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+  @media (max-width: 640px){
+    .margin-line{ left: 20px; }
+    header{ padding: 34px 16px 24px 40px; }
+    main{ padding: 0 16px 0 40px; }
+    .stamp{ width: 78px; height: 78px; top: 18px; }
+    .stamp .score{ font-size:16px; }
+    input.gap{ width: 92px; }
+  }
 
-        .result-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        /* PCでの表示微調整 */
-        @media (min-width: 600px) {
-            .input-group {
-                display: inline-block;
-                margin: 0 5px;
-            }
-            input[type="text"] {
-                width: auto;
-                min-width: 200px;
-            }
-            .header h1 { font-size: 2rem; }
-        }
-    </style>
+  @media (prefers-reduced-motion: reduce){
+    .stamp, .mark, input.gap{ transition: none; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🌍 環境クイズテスト</h1>
-            <div class="score-board">
-                <div class="score-item">正解: <span id="correct-count">0</span></div>
-                <div class="score-item">不正解: <span id="incorrect-count">0</span></div>
-                <div class="score-item">未回答: <span id="unanswered-count">16</span></div>
-            </div>
-        </div>
 
-        <div class="content">
-            <div class="section">
-                <h2>2022年の世界大気汚染PM2.5ランキング</h2>
-                <div class="quiz-item">
-                    <div class="question">１位：<span class="input-group"><input type="text" data-answer="チャド共和国" id="q1"></span></div>
-                    <span class="feedback" id="f1"></span>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">２位：<span class="input-group"><input type="text" data-answer="イラク" id="q2"></span></div>
-                    <span class="feedback" id="f2"></span>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">３位：<span class="input-group"><input type="text" data-answer="パキスタン" id="q3"></span></div>
-                    <span class="feedback" id="f3"></span>
-                </div>
-            </div>
+<div class="margin-line"></div>
 
-            <div class="section">
-                <h2>土壌環境とは</h2>
-                <div class="quiz-item">
-                    <div class="question">日本では<span class="input-group"><input type="text" data-answer="足尾銅山（栃木県）|足尾銅山(栃木県)|足尾銅山" id="q4"></span>や<span class="input-group"><input type="text" data-answer="土呂久鉱山" id="q5"></span>などで鉱毒事件発生。</div>
-                    <span class="feedback" id="f4"></span><span class="feedback" id="f5"></span>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">世界に先駆けて1970年に<span class="input-group"><input type="text" data-answer="農用地土壌汚染防止法" id="q6"></span>を制定</div>
-                    <span class="feedback" id="f6"></span>
-                </div>
-            </div>
+<div class="stamp" id="stamp">
+  <div class="kanji">採点</div>
+  <div class="score" id="stampScore">--</div>
+  <div class="max">/ 100点</div>
+</div>
 
-            <div class="section">
-                <div class="quiz-item"><div class="question">戦後、化学工業や電気工業が発達</div></div>
-                <div class="quiz-item">
-                    <div class="question"><span class="input-group"><input type="text" data-answer="六価クロム" id="q7"></span>やVOCによる市街地の土壌と地下水汚染が発生</div>
-                    <span class="feedback" id="f7"></span>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">2003年に<span class="input-group"><input type="text" data-answer="土壌汚染対策法" id="q8"></span>が施行</div>
-                    <span class="feedback" id="f8"></span>
-                </div>
-            </div>
+<header>
+  <p class="eyebrow">FILL-IN-THE-BLANK WORKBOOK · SET 2</p>
+  <h1>英作文ドリル２</h1>
+  <p class="sub">日本文に合うように空所へ適語を入れましょう。全20問・各5点、100点満点です。1問につき空所が2つあり、それぞれ2.5点で採点されます。</p>
+</header>
 
-            <div class="section">
-                <h2>環境アセスメントとミティゲーションについて</h2>
-                <div class="quiz-item">
-                    <div class="question">環境アセスメントとは、<span class="input-group"><input type="text" data-answer="環境影響評価" id="q9"></span>（日本語）</div>
-                    <span class="feedback" id="f9"></span>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">assessment=<span class="input-group"><input type="text" data-answer="評価、査定、分析|評価|査定|分析" id="q10"></span></div>
-                    <span class="feedback" id="f10"></span>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">mitigation=<span class="input-group"><input type="text" data-answer="和らげること、緩和、軽減|和らげること,緩和,軽減|緩和|軽減|和らげること" id="q11"></span></div>
-                    <span class="feedback" id="f11"></span>
-                </div>
-            </div>
+<main id="main"></main>
 
-            <div class="section">
-                <div class="quiz-item"><div class="question">1960年台のアメリカで農薬による環境汚染</div></div>
-                <div class="quiz-item">
-                    <div class="question"><span class="input-group"><input type="text" data-answer="沈黙の春（Silent spring）|沈黙の春(Silent spring)|沈黙の春|Silent spring" id="q12"></span>という本により問題提起</div>
-                    <span class="feedback" id="f12"></span>
-                </div>
-            </div>
+<div class="controls">
+  <button id="gradeBtn">採点する</button>
+  <button id="resetBtn">リセット</button>
+  <span class="score-text" id="scoreText"></span>
+</div>
 
-            <div class="section">
-                <div class="quiz-item"><div class="question">1969年、</div></div>
-                <div class="quiz-item">
-                    <div class="question"><span class="input-group"><input type="text" data-answer="国家環境政策法" id="q13"></span>の制定</div>
-                    <span class="feedback" id="f13"></span>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">日本では、1972年に公共事業において<span class="input-group"><input type="text" data-answer="環境アセスメント" id="q14"></span>を導入</div>
-                    <span class="feedback" id="f14"></span>
-                </div>
-            </div>
+<script>
+// ---------- quiz data ----------
+// each question = 2 blanks, each blank worth 2.5 points -> 20 questions x 5pt = 100pt total
+const quizData = [
+  { n:1,  jp:"彼は忙しいふりをした。",
+    template:"He ___ ___ busy.",
+    answers:[["pretended"],["to be"]] },
+  { n:2,  jp:"私はうっかりして鍵を家に置き忘れた。",
+    template:"I ___ my keys at home ___ mistake.",
+    answers:[["left"],["by"]] },
+  { n:3,  jp:"彼女はその知らせを聞いて驚きのあまり言葉を失った。",
+    template:"She was so surprised at the news that she was ___ a ___ for words.",
+    answers:[["at"],["loss"]] },
+  { n:4,  jp:"彼はついに禁煙することに決めた。",
+    template:"He finally made ___ his mind ___ quit smoking.",
+    answers:[["up"],["to"]] },
+  { n:5,  jp:"彼らはお互いに助け合うべきだ。",
+    template:"They should ___ ___ another.",
+    answers:[["help"],["one"]] },
+  { n:6,  jp:"彼は他人の意見を気にしない。",
+    template:"He doesn't ___ ___ other people's opinions.",
+    answers:[["care"],["about"]] },
+  { n:7,  jp:"私たちはお金の使い方に関して意見が合わない。",
+    template:"We don't ___ ___ how to spend the money.",
+    answers:[["agree"],["on"]] },
+  { n:8,  jp:"彼女はダイエット中で甘いものを控えている。",
+    template:"She is ___ ___ on sweets because she's on a diet.",
+    answers:[["cutting"],["down"]] },
+  { n:9,  jp:"彼はいつも時間を守る。",
+    template:"He is always ___ ___.",
+    answers:[["on"],["time"]] },
+  { n:10, jp:"この本は子供にも大人にも人気がある。",
+    template:"This book is popular ___ ___ children and adults.",
+    answers:[["with"],["both"]] },
+  { n:11, jp:"彼女はスペイン語を短期間で習得した。",
+    template:"She ___ ___ Spanish in a short time.",
+    answers:[["picked"],["up"]] },
+  { n:12, jp:"彼は自分の失敗を素直に認めた。",
+    template:"He ___ ___ to his mistake.",
+    answers:[["owned"],["up"]] },
+  { n:13, jp:"その計画は結局失敗に終わった。",
+    template:"The plan ___ ___ failure in the end.",
+    answers:[["ended"],["in"]] },
+  { n:14, jp:"彼は何が起きても動揺しない。",
+    template:"He never ___ his ___ no matter what happens.",
+    answers:[["loses"],["temper"]] },
+  { n:15, jp:"彼女はすぐに新しい環境に慣れた。",
+    template:"She soon got ___ ___ the new environment.",
+    answers:[["used"],["to"]] },
+  { n:16, jp:"私は彼にひどい仕打ちをされて我慢の限界だった。",
+    template:"I was fed ___ ___ the way he treated me.",
+    answers:[["up"],["with"]] },
+  { n:17, jp:"彼は上司に反対する勇気がなかった。",
+    template:"He didn't have the ___ ___ disagree with his boss.",
+    answers:[["courage"],["to"]] },
+  { n:18, jp:"その事故のせいで交通が完全に止まった。",
+    template:"The accident ___ traffic to a complete ___.",
+    answers:[["brought"],["stop"]] },
+  { n:19, jp:"彼女は突然泣き出した。",
+    template:"She suddenly ___ ___ tears.",
+    answers:[["burst"],["into"]] },
+  { n:20, jp:"私たちはその問題について徹底的に話し合った。",
+    template:"We discussed the problem ___ ___.",
+    answers:[["in"],["detail"]] },
+];
 
-            <div class="section">
-                <div class="quiz-item">
-                    <div class="question">1993年には、<span class="input-group"><input type="text" data-answer="環境基本法" id="q15"></span>が制定</div>
-                    <span class="feedback" id="f15"></span>
-                </div>
-                <div class="quiz-item">
-                    <div class="question">1997年には<span class="input-group"><input type="text" data-answer="環境影響評価法（Environmental Impact Assessment Law）|環境影響評価法(Environmental Impact Assessment Law)|環境影響評価法" id="q16"></span>が制定</div>
-                    <span class="feedback" id="f16"></span>
-                </div>
-            </div>
+const POINTS_PER_QUESTION = 5;
+const POINTS_PER_BLANK = POINTS_PER_QUESTION / 2; // 2.5
 
-            <div class="button-group">
-                <button onclick="checkAllAnswers()">採点する</button>
-                <button class="reset" onclick="resetQuiz()">リセット</button>
-            </div>
-        </div>
-    </div>
+// ---------- render ----------
+const main = document.getElementById('main');
+let blankCounter = 0;
 
-    <div class="result-modal" id="resultModal">
-        <div class="result-content">
-            <h2 id="finalScore" style="font-size: 2.5rem; color: #4CAF50;">0/16</h2>
-            <p id="resultMessage" style="margin: 15px 0; font-size: 1.1rem;"></p>
-            <button onclick="closeModal()" style="max-width: 100%;">閉じる</button>
-        </div>
-    </div>
+const st = document.createElement('div');
+st.className = 'section-title';
+st.innerHTML = `<span class="num">02</span>
+  <h2>空所補充ドリル（全20問・100点満点）</h2>
+  <span class="count">1問 5点</span>`;
+main.appendChild(st);
 
-    <script>
-        const totalQuestions = 16;
-        let correctCount = 0;
-        let incorrectCount = 0;
+quizData.forEach((q, qi) => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.setAttribute('data-qn', 'Q' + q.n);
+  card.dataset.qIndex = qi;
 
-        function normalizeText(text) {
-            return text.trim()
-                .replace(/\s+/g, '')
-                .replace(/[（(]/g, '(')
-                .replace(/[）)]/g, ')')
-                .toLowerCase();
-        }
+  const pts = document.createElement('span');
+  pts.className = 'pts';
+  pts.textContent = POINTS_PER_QUESTION + '点';
+  card.appendChild(pts);
 
-        function checkAnswer(input) {
-            const userAnswer = normalizeText(input.value);
-            const rawAnswers = input.dataset.answer.split('|');
-            const correctAnswers = rawAnswers.map(ans => normalizeText(ans));
-            const feedbackElement = document.getElementById('f' + input.id.substring(1));
-            
-            if (userAnswer === '') {
-                input.className = 'incorrect';
-                feedbackElement.textContent = `未入力 (正解: ${rawAnswers[0]})`;
-                feedbackElement.className = 'feedback incorrect';
-                return false;
-            }
-            
-            const isCorrect = correctAnswers.includes(userAnswer);
-            if (isCorrect) {
-                input.className = 'correct';
-                feedbackElement.textContent = '✓ 正解!';
-                feedbackElement.className = 'feedback correct';
-                return true;
-            } else {
-                input.className = 'incorrect';
-                feedbackElement.textContent = `✗ 不正解 (正解: ${rawAnswers[0]})`;
-                feedbackElement.className = 'feedback incorrect';
-                return false;
-            }
-        }
+  const jpEl = document.createElement('p');
+  jpEl.className = 'jp';
+  jpEl.textContent = q.jp;
+  card.appendChild(jpEl);
 
-        function checkAllAnswers() {
-            correctCount = 0;
-            incorrectCount = 0;
-            const inputs = document.querySelectorAll('input[type="text"]');
-            inputs.forEach(input => {
-                if (checkAnswer(input)) correctCount++;
-                else incorrectCount++;
-            });
-            updateScoreboard();
-            showResult();
-        }
+  const enEl = document.createElement('p');
+  enEl.className = 'en';
 
-        function updateScoreboard() {
-            document.getElementById('correct-count').textContent = correctCount;
-            document.getElementById('incorrect-count').textContent = incorrectCount;
-            document.getElementById('unanswered-count').textContent = totalQuestions - correctCount - incorrectCount;
-        }
+  const parts = q.template.split('___');
+  parts.forEach((part, i) => {
+    enEl.appendChild(document.createTextNode(part));
+    if (i < parts.length - 1) {
+      const wrap = document.createElement('span');
+      wrap.className = 'blank';
 
-        function showResult() {
-            const modal = document.getElementById('resultModal');
-            document.getElementById('finalScore').textContent = `${correctCount} / ${totalQuestions}`;
-            const percentage = (correctCount / totalQuestions) * 100;
-            let message = percentage === 100 ? 'まぁまぁやるやん。' : percentage >= 70 ? 'とりあえず単位はあるんちゃうかな' : 'なるほど、品管に全振りする感じですね。';
-            document.getElementById('resultMessage').textContent = message;
-            modal.style.display = 'flex';
-        }
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'gap';
+      input.autocomplete = 'off';
+      input.spellcheck = false;
+      const id = 'b' + (blankCounter++);
+      input.id = id;
+      input.dataset.answers = JSON.stringify(q.answers[i]);
+      input.dataset.qIndex = qi;
 
-        function closeModal() { document.getElementById('resultModal').style.display = 'none'; }
+      const mark = document.createElement('span');
+      mark.className = 'mark';
+      mark.id = id + '-mark';
 
-        function resetQuiz() {
-            if(!confirm('リセットしますか？')) return;
-            document.querySelectorAll('input[type="text"]').forEach(input => {
-                input.value = ''; input.className = '';
-            });
-            document.querySelectorAll('.feedback').forEach(f => {
-                f.textContent = ''; f.className = 'feedback';
-            });
-            correctCount = 0; incorrectCount = 0;
-            updateScoreboard();
-            document.getElementById('unanswered-count').textContent = totalQuestions;
-        }
-    </script>
+      wrap.appendChild(input);
+      wrap.appendChild(mark);
+      enEl.appendChild(wrap);
+    }
+  });
+
+  card.appendChild(enEl);
+
+  const corr = document.createElement('span');
+  corr.className = 'correction';
+  corr.id = 'card-corr-' + qi;
+  card.appendChild(corr);
+
+  const qscore = document.createElement('span');
+  qscore.className = 'qscore';
+  qscore.id = 'card-score-' + qi;
+  card.appendChild(qscore);
+
+  main.appendChild(card);
+});
+
+// ---------- grading ----------
+function normalize(str){
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[’']/g, "'")
+    .replace(/'/g, "")
+    .replace(/[.,!?]/g, "")
+    .replace(/\s+/g, " ");
+}
+
+document.getElementById('gradeBtn').addEventListener('click', () => {
+  const inputs = document.querySelectorAll('input.gap');
+  let totalScore = 0;
+
+  // reset per-card correction text
+  document.querySelectorAll('.correction').forEach(c => { c.textContent=''; c.classList.remove('show'); });
+
+  const perCardCorrectBlanks = {};
+
+  inputs.forEach(input => {
+    const accepted = JSON.parse(input.dataset.answers).map(normalize);
+    const value = normalize(input.value);
+    const isCorrect = value.length > 0 && accepted.includes(value);
+    const mark = document.getElementById(input.id + '-mark');
+    const qi = input.dataset.qIndex;
+
+    input.classList.remove('correct','wrong');
+    mark.classList.remove('show','ok');
+
+    if (isCorrect) {
+      input.classList.add('correct');
+      mark.textContent = '○';
+      mark.classList.add('show','ok');
+      totalScore += POINTS_PER_BLANK;
+      perCardCorrectBlanks[qi] = (perCardCorrectBlanks[qi] || 0) + 1;
+    } else {
+      input.classList.add('wrong');
+      mark.textContent = '✗';
+      mark.classList.add('show');
+      const card = input.closest('.card');
+      const corr = card.querySelector('.correction');
+      const answersForThis = JSON.parse(input.dataset.answers);
+      appendHint(corr, answersForThis);
+    }
+  });
+
+  // per-card score display
+  quizData.forEach((q, qi) => {
+    const correctBlanks = perCardCorrectBlanks[qi] || 0;
+    const cardPts = correctBlanks * POINTS_PER_BLANK;
+    const el = document.getElementById('card-score-' + qi);
+    el.textContent = `この問題の得点: ${cardPts} / ${POINTS_PER_QUESTION}点`;
+    el.classList.add('show');
+  });
+
+  document.getElementById('scoreText').textContent = `得点：${totalScore} / 100点`;
+
+  const stamp = document.getElementById('stamp');
+  document.getElementById('stampScore').textContent = totalScore;
+  stamp.classList.remove('show');
+  requestAnimationFrame(() => requestAnimationFrame(() => stamp.classList.add('show')));
+});
+
+function appendHint(corrEl, answers){
+  const text = '正解: ' + answers.join(' / ');
+  const existing = corrEl.textContent;
+  if (!existing.includes(text)) {
+    corrEl.textContent = existing ? existing + '　　' + text : text;
+  }
+  corrEl.classList.add('show');
+}
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  document.querySelectorAll('input.gap').forEach(input => {
+    input.value = '';
+    input.classList.remove('correct','wrong');
+  });
+  document.querySelectorAll('.mark').forEach(m => m.classList.remove('show','ok'));
+  document.querySelectorAll('.correction').forEach(c => {
+    c.textContent = '';
+    c.classList.remove('show');
+  });
+  document.querySelectorAll('.qscore').forEach(s => {
+    s.textContent = '';
+    s.classList.remove('show');
+  });
+  document.getElementById('scoreText').textContent = '';
+  document.getElementById('stamp').classList.remove('show');
+});
+</script>
 </body>
 </html>
